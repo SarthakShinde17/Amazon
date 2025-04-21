@@ -6,7 +6,7 @@ from .forms import ProductForm
 
 def home(request):
     if request.method == 'POST':
-        form = ProductForm(request.POST)
+        form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             fm = ProductForm()
@@ -21,7 +21,7 @@ def home(request):
 def update_data(request, id):
     if request.method == 'POST':
         pi = Product.objects.get(pk=id)
-        form = ProductForm(request.POST, instance=pi)
+        form = ProductForm(request.POST, request.FILES, instance=pi)
         if form.is_valid():
             form.save()
             return redirect('home')
